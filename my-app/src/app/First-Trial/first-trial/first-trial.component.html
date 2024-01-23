@@ -15,16 +15,20 @@
             <h3>Positive</h3>
         </div>
 
-        <div class="col-4 center d-flex justify-content-center">
-            <h2 style="text-decoration: underline;">{{text}}</h2>
+        <div class="col-4 center d-flex justify-content-center" *ngIf="isEnabled">
+            <h2 style="text-decoration: underline;">Part 1 of 4</h2>
         </div>
-        
+
+        <div class="col-4 center d-flex justify-content-center" *ngIf="isEnableWords">
+            <h2 style="color:blue;">{{text}}</h2>
+        </div>
+
         <div class="col-4 d-flex justify-content-center" style="color:blue;">
              <h3>Negative</h3>
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" *ngIf="isEnabled">
         <div class="col-12">
             <h5 class="info">
                 Put a left finger on the <span style="font-weight: bold;"> "E" </span> key for items that belong to the category <span style="color: blue;">Positive</span>. <br>
@@ -38,6 +42,5 @@
                 Press the <span style="font-weight: bold;">space bar</span> when you are ready to start
             </h5>
         </div>
-        
     </div>
 </div>
