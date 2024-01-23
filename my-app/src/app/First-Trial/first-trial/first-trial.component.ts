@@ -8,5 +8,6 @@ import { Component } from '@angular/core';
   styleUrl: './first-trial.component.css'
 })
 export class FirstTrialComponent {
+text:string = 'Part 1 of 4';
 
 }
