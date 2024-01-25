@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-first-trial',
   standalone: true,
-  imports: [CommonModule ],
+  imports: [CommonModule,RouterLink ],
   templateUrl: './first-trial.component.html',
   styleUrl: './first-trial.component.css'
 })
@@ -36,7 +37,8 @@ bothArray:any = [ "Hate", "Poison", "Nasty", "Disgust", "Horrific", "Abuse", "Pa
 isEnabled: boolean = true;
 isEnableWords: boolean = false;
 date:any | undefined;
-istrue: boolean = false;
+isWrong: boolean = false;
+isNext: boolean = false;
 constructor() {
    this.text
 }
@@ -52,19 +54,32 @@ keyEvent(event: KeyboardEvent) {
   if(event.key.toLowerCase() == "e"){
     this.isEnabled = false;
     this.isEnableWords = true;
-    this.checkPositive();
+    if(this.bothArray.length != 0){
+      this.checkPositive();
+
+    }
+    else{
+      this.text = '';
+      this.isNext = true;
+    }
   }
 
   if(event.key.toLowerCase() == "i"){
     this.isEnabled = false;
     this.isEnableWords = true;
-    this.checkNegative();
-  }
+    if(this.bothArray.length != 0){
+      this.checkNegative();
 
+    }
+    else{
+      this.text = '';
+      this.isNext = true;
+    }
+  }
  }
 
   checkPositive(){
-    this.istrue = false;
+    this.isWrong = false;
     let a = this.positveArray.filter( (x: { name: string; }) => x.name == this.text);
     if(a.length != 0){
       if(this.text == a[0].name){
@@ -72,7 +87,7 @@ keyEvent(event: KeyboardEvent) {
       }
     }
     else{
-      this.istrue = true;
+      this.isWrong = true;
     }
     // this.date = Date.now()
     // console.log(this.date);
@@ -82,7 +97,7 @@ keyEvent(event: KeyboardEvent) {
   }
 
   checkNegative(){
-    this.istrue = false;
+    this.isWrong = false;
     let a = this.negativeArray.filter( (x: { name: string; }) => x.name == this.text);
     if(a.length != 0){
       if(this.text == a[0].name){
@@ -90,7 +105,7 @@ keyEvent(event: KeyboardEvent) {
       }
     }
     else{
-      this.istrue = true;
+      this.isWrong = true;
     }
   }
 
