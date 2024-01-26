@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-second-trail',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterLink],
   templateUrl: './second-trail.component.html',
   styleUrl: './second-trail.component.css'
 })
@@ -38,13 +39,10 @@ export class SecondTrailComponent {
   date:any | undefined;
   isWrong: boolean = false;
   isNext: boolean = false;
-  constructor() {
-     this.text
-  }
-  
+
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
-    if(event.key == " "){
+    if(event.key == " " && !this.isNext){
       this.isEnabled = false;
       this.isEnableWords = true;
       this.text = this.positveArray[0].name;
@@ -53,68 +51,61 @@ export class SecondTrailComponent {
     if(event.key.toLowerCase() == "e"){
       this.isEnabled = false;
       this.isEnableWords = true;
-      if(this.bothArray.length != 0){
-        this.checkNegative();
-      }
-      else{
-        this.text = '';
-        this.isNext = true;
-      }
+      this.checkNegative();
     }
   
     if(event.key.toLowerCase() == "i"){
       this.isEnabled = false;
       this.isEnableWords = true;
-      if(this.bothArray.length != 0){
-        this.checkPositive();
-      }
-      else{
-        this.text = '';
-        this.isNext = true;
-      }
+     this.checkPositive();
     }
-   }
+  }
   
-    checkPositive(){
-      this.isWrong = false;
-      let a = this.positveArray.filter( (x: { name: string; }) => x.name == this.text);
-      if(a.length != 0){
-        if(this.text == a[0].name){
-          this.getRandomWords();
-        }
+  checkPositive(){
+    this.isWrong = false;
+    let a = this.positveArray.filter( (x: { name: string; }) => x.name == this.text);
+    if(a.length != 0){
+      if(this.text == a[0].name){
+        this.getRandomWords();
       }
-      else{
-        this.isWrong = true;
-      }
-      // this.date = Date.now()
-      // console.log(this.date);
-      // for(let i = 0; i<this.arr.length; i++){
-      //   this.text = this.arr[i];
-      // }
     }
+    else if(!this.isNext){
+      this.isWrong = true;
+    }
+    // this.date = Date.now()
+    // console.log(this.date);
+    // for(let i = 0; i<this.arr.length; i++){
+    //   this.text = this.arr[i];
+    // }
+  }
   
-    checkNegative(){
-      this.isWrong = false;
-      let a = this.negativeArray.filter( (x: { name: string; }) => x.name == this.text);
-      if(a.length != 0){
-        if(this.text == a[0].name){
-          this.getRandomWords();
-        }
-      }
-      else{
-        this.isWrong = true;
+  checkNegative(){
+    this.isWrong = false;
+    let a = this.negativeArray.filter( (x: { name: string; }) => x.name == this.text);
+    if(a.length != 0){
+      if(this.text == a[0].name){
+        this.getRandomWords();
       }
     }
+    else if(!this.isNext){
+      this.isWrong = true;
+    }
+  }
   
-    getRandomWords(){
-      var ri = Math.floor(Math.random() * this.bothArray.length);
-      var rs = this.bothArray.splice(ri, 1);
-      if( rs.length != 0){
-        this.text = rs[0];
-      }
-      else{
-        this.text = " ";
-      }
+  getRandomWords(){
+    var ri = Math.floor(Math.random() * this.bothArray.length);
+    var rs = this.bothArray.splice(ri, 1);
+    if( rs.length != 0){
+      this.text = rs[0];
     }
+    else{
+      this.text = " ";
+    }
+      
+    if(this.bothArray.length == 0 && this.text == " "){
+      this.isNext = true;
+      this.text = " ";
+    } 
+  }
   
 }

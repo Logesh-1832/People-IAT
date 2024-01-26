@@ -39,13 +39,10 @@ isEnableWords: boolean = false;
 date:any | undefined;
 isWrong: boolean = false;
 isNext: boolean = false;
-constructor() {
-   this.text
-}
 
 @HostListener('window:keyup', ['$event'])
 keyEvent(event: KeyboardEvent) {
-  if(event.key == " "){
+  if(event.key == " " && !this.isNext){
     this.isEnabled = false;
     this.isEnableWords = true;
     this.text = this.positveArray[0].name;
@@ -54,27 +51,13 @@ keyEvent(event: KeyboardEvent) {
   if(event.key.toLowerCase() == "e"){
     this.isEnabled = false;
     this.isEnableWords = true;
-    if(this.bothArray.length != 0){
-      this.checkPositive();
-
-    }
-    else{
-      this.text = '';
-      this.isNext = true;
-    }
+    this.checkPositive();
   }
 
   if(event.key.toLowerCase() == "i"){
     this.isEnabled = false;
     this.isEnableWords = true;
-    if(this.bothArray.length != 0){
-      this.checkNegative();
-
-    }
-    else{
-      this.text = '';
-      this.isNext = true;
-    }
+    this.checkNegative();
   }
  }
 
@@ -86,7 +69,7 @@ keyEvent(event: KeyboardEvent) {
         this.getRandomWords();
       }
     }
-    else{
+    else if(!this.isNext){
       this.isWrong = true;
     }
     // this.date = Date.now()
@@ -104,7 +87,7 @@ keyEvent(event: KeyboardEvent) {
         this.getRandomWords();
       }
     }
-    else{
+    else if(!this.isNext){
       this.isWrong = true;
     }
   }
@@ -118,6 +101,10 @@ keyEvent(event: KeyboardEvent) {
     else{
       this.text = " ";
     }
+    if(this.bothArray.length == 0 && this.text == " "){
+      this.isNext = true;
+      this.text = " ";
+    } 
   }
 }
 
