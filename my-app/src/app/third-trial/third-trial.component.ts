@@ -25,6 +25,7 @@ export class ThirdTrialComponent {
   isWrong: boolean = false;
   isNext: boolean = false;
   isImg: boolean = true;
+  isStarted: boolean = false;
 
   ngOnInit() {
     this.richPeopleArray = this.globals.richPeopleArray;
@@ -34,20 +35,21 @@ export class ThirdTrialComponent {
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
-    if(event.key == " " && !this.isNext){
+    if(event.key == " " && !this.isNext && !this.isStarted){
       this.isEnabled = false;
       this.isEnableWords = true;
       this.text = this.richPeopleArray[0].name;
       this.imgPath = this.baseSrc + this.richPeopleArray[0].name + ".jpg";
+      this.isStarted = true;
     }
   
-    if(event.key.toLowerCase() == "e"){
+    if(event.key.toLowerCase() == "e" && this.isStarted){
       this.isEnabled = false;
       this.isEnableWords = true;
       this.checkNormalPeople();
     }
   
-    if(event.key.toLowerCase() == "i"){
+    if(event.key.toLowerCase() == "i" && this.isStarted){
       this.isEnabled = false;
       this.isEnableWords = true;
       this.checkRichPeople();

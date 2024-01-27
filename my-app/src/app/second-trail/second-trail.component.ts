@@ -22,6 +22,7 @@ export class SecondTrailComponent {
   date:any | undefined;
   isWrong: boolean = false;
   isNext: boolean = false;
+  isStarted: boolean = false;
 
   ngOnInit(){
     this.negativeWordList = this.globals.negativeWordsArray;
@@ -31,19 +32,20 @@ export class SecondTrailComponent {
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
-    if(event.key == " " && !this.isNext){
+    if(event.key == " " && !this.isNext && !this.isStarted){
       this.isEnabled = false;
       this.isEnableWords = true;
       this.text = this.positiveWordList[0].name;
+      this.isStarted = true;
     }
   
-    if(event.key.toLowerCase() == "e"){
+    if(event.key.toLowerCase() == "e" && this.isStarted){
       this.isEnabled = false;
       this.isEnableWords = true;
       this.checkNegative();
     }
   
-    if(event.key.toLowerCase() == "i"){
+    if(event.key.toLowerCase() == "i" && this.isStarted){
       this.isEnabled = false;
       this.isEnableWords = true;
      this.checkPositive();

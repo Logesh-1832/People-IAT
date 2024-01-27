@@ -4,13 +4,13 @@ import { RouterLink } from '@angular/router';
 import { Globals } from '../app.global';
 
 @Component({
-  selector: 'app-fifth-trial',
+  selector: 'app-eight-trial',
   standalone: true,
-  imports: [CommonModule,RouterLink],
-  templateUrl: './fifth-trial.component.html',
-  styleUrl: './fifth-trial.component.css'
+  imports: [CommonModule, RouterLink],
+  templateUrl: './eight-trial.component.html',
+  styleUrl: './eight-trial.component.css'
 })
-export class FifthTrialComponent {
+export class EightTrialComponent {
 
   constructor(private globals: Globals){}
 
@@ -58,12 +58,12 @@ export class FifthTrialComponent {
   
     if(event.key.toLowerCase() == "e" && this.isStarted){
       this.isEnabled = false;
-      this.checkRichPeople();
+      this.checkNormalPeople();
     }
   
     if(event.key.toLowerCase() == "i" && this.isStarted){
       this.isEnabled = false;
-      this.checkNormalPeople();
+      this.checkRichPeople();
     }
   }
   

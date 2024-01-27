@@ -4,14 +4,14 @@ import { RouterLink } from '@angular/router';
 import { Globals } from '../app.global';
 
 @Component({
-  selector: 'app-fifth-trial',
+  selector: 'app-seventh-trial',
   standalone: true,
   imports: [CommonModule,RouterLink],
-  templateUrl: './fifth-trial.component.html',
-  styleUrl: './fifth-trial.component.css'
+  templateUrl: './seventh-trial.component.html',
+  styleUrl: './seventh-trial.component.css'
 })
-export class FifthTrialComponent {
-
+export class SeventhTrialComponent {
+ 
   constructor(private globals: Globals){}
 
   negativeWordList: any;
@@ -41,8 +41,8 @@ export class FifthTrialComponent {
     this.positiveWordList = this.globals.positveWordsArray;
     this.bothWordsArray = this.globals.bothWordsArray;  
 
-    this.richPeopleArray = this.richPeopleArray.concat(this.positiveWordList);
-    this.normalPeopleArray = this.normalPeopleArray.concat(this.negativeWordList);
+    this.richPeopleArray = this.richPeopleArray.concat(this.negativeWordList);
+    this.normalPeopleArray = this.normalPeopleArray.concat(this.positiveWordList);
     this.bothWordsArray = this.bothWordsArray.concat(this.bothPeople);
   }
 
@@ -58,12 +58,12 @@ export class FifthTrialComponent {
   
     if(event.key.toLowerCase() == "e" && this.isStarted){
       this.isEnabled = false;
-      this.checkRichPeople();
+      this.checkNormalPeople();
     }
   
     if(event.key.toLowerCase() == "i" && this.isStarted){
       this.isEnabled = false;
-      this.checkNormalPeople();
+      this.checkRichPeople();
     }
   }
   
