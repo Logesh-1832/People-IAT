@@ -1,0 +1,78 @@
+<div class="box">
+    <div class="row">
+        <div class="col-4 left d-flex justify-content-center">
+            <h6>Press "E" for</h6><br>
+        </div>
+        <div class="col-4  d-flex justify-content-center">
+        </div>
+        <div class="col-4 right d-flex justify-content-center">
+            <h6>Press "I" for</h6><br>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-4 d-flex justify-content-center" style="color:blue;">
+            <h3>Normal People / Positive word</h3>
+        </div>
+
+        <div class="col-4 center d-flex justify-content-center" *ngIf="isEnabled">
+            <h2 style="text-decoration: underline;">Part 7 of 8</h2>
+        </div>
+
+        <div class="col-4 center d-flex justify-content-center" *ngIf="isEnableImages">
+            <img *ngIf="isImg" style="width: 200px; height: 200px;" [src]="imgPath">
+        </div>
+
+        <div class="col-4 center d-flex justify-content-center" *ngIf="isEnableWords">
+            <h2 style="color:blue;">{{text}}</h2>
+        </div>
+
+        <div class="col-4 d-flex justify-content-center" style="color:blue;">
+             <h3>Rich People / Negative word</h3>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="isWrong">
+        
+        <div class="col-4  d-flex justify-content-center">
+        </div>
+
+        <div class="col-4 d-flex justify-content-center">
+            <h1 style="color: red;">X</h1>
+        </div>
+
+        <div class="col-4  d-flex justify-content-center">
+        </div>
+
+    </div>
+
+    <div class="row" *ngIf="isNext">
+        
+        <div class="col-4  d-flex justify-content-center">
+        </div>
+
+        <div class="col-4 d-flex justify-content-center">
+            <a type="button" class="btn btn-primary" routerLink="/eight-trial" routerLinkActive="router-link-active" >Continue</a>
+        </div>
+
+        <div class="col-4  d-flex justify-content-center">
+        </div>
+
+    </div>
+
+    <div class="row" *ngIf="isEnabled">
+        <div class="col-12">
+            <h5 class="info">
+                Put a left finger on the <span style="font-weight: bold;"> "E" </span> key for items that belong to the category <span style="color: blue;">Normal People and Positive word</span>. <br>
+                Put a right finger on the <span style="font-weight: bold;"> "I" </span> key for items that belong to the category <span style="color: blue;">Rich People and Negative word</span>.
+            </h5>
+            <h5 class="info">
+                If you make a mistake, a red <span style="color: red;">X</span> will appear. Press the other key to continue. <br>
+                <span style="text-decoration: underline;">Go as fast as you can</span> while being accurate.
+            </h5>
+            <h5 class="infoss">
+                Press the <span style="font-weight: bold;">space bar</span> when you are ready to start
+            </h5>
+        </div>
+    </div>
+</div>

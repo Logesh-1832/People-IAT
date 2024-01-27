@@ -13,42 +13,44 @@ import { Globals } from '../../app.global';
 export class FirstTrialComponent {
   constructor(private globals: Globals){}
 
-text:string = '';
-positiveWordList:any;
-negativeWordList:any;
-bothWordsArray:any;
-isEnabled: boolean = true;
-isEnableWords: boolean = false;
-date:any | undefined;
-isWrong: boolean = false;
-isNext: boolean = false;
+  text:string = '';
+  positiveWordList:any;
+  negativeWordList:any;
+  bothWordsArray:any;
+  isEnabled: boolean = true;
+  isEnableWords: boolean = false;
+  date:any | undefined;
+  isWrong: boolean = false;
+  isNext: boolean = false;
+  isStarted: boolean = false;
 
-ngOnInit(){
-  this.negativeWordList = this.globals.negativeWordsArray;
-  this.positiveWordList = this.globals.positveWordsArray;
-  this.bothWordsArray = this.globals.bothWordsArray;
-}
-
-@HostListener('window:keyup', ['$event'])
-keyEvent(event: KeyboardEvent) {
-  if(event.key == " " && !this.isNext){
-    this.isEnabled = false;
-    this.isEnableWords = true;
-    this.text = this.positiveWordList[0].name;
+  ngOnInit(){
+    this.negativeWordList = this.globals.negativeWordsArray;
+    this.positiveWordList = this.globals.positveWordsArray;
+    this.bothWordsArray = this.globals.bothWordsArray;
   }
 
-  if(event.key.toLowerCase() == "e"){
-    this.isEnabled = false;
-    this.isEnableWords = true;
-    this.checkPositive();
-  }
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+    if(event.key == " " && !this.isNext && !this.isStarted){
+      this.isEnabled = false;
+      this.isEnableWords = true;
+      this.text = this.positiveWordList[0].name;
+      this.isStarted = true;
+    }
 
-  if(event.key.toLowerCase() == "i"){
-    this.isEnabled = false;
-    this.isEnableWords = true;
-    this.checkNegative();
+    if(event.key.toLowerCase() == "e" && this.isStarted){
+      this.isEnabled = false;
+      this.isEnableWords = true;
+      this.checkPositive();
+    }
+
+    if(event.key.toLowerCase() == "i" && this.isStarted){
+      this.isEnabled = false;
+      this.isEnableWords = true;
+      this.checkNegative();
+    }
   }
- }
 
   checkPositive(){
     this.isWrong = false;
