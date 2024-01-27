@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Globals } from '../app.global';
 
 @Component({
   selector: 'app-third-trial',
@@ -10,32 +11,26 @@ import { RouterLink } from '@angular/router';
   styleUrl: './third-trial.component.css'
 })
 export class ThirdTrialComponent {
+  constructor(private globals: Globals){}
+
   text:string = '';
   imgPath: string = '';
   baseSrc:string = './assets/Peoples/';
-  richPeopleArray:any = [
-    {name:"RP1",value:"e"},
-    {name:"RP2",value:"e"},
-    {name:"RP3",value:"e"}, 
-    {name:"RP4",value:"e"}, 
-    {name:"RP5",value:"e"},
-  ];
-  
-  normalPeopleArray:any = [
-    {name:"NP1",value:"i"},
-    {name:"NP2",value:"i"},
-    {name:"NP3",value:"i"}, 
-    {name:"NP4",value:"i"}, 
-    {name:"NP5",value:"i"}, 
-  ];
-  bothArray:any = [ "RP1", "RP2", "RP3", "RP4", "RP5", "NP1", "NP2", "NP3" , "NP4", "NP5" ]
-  
+  richPeopleArray:any; 
+  normalPeopleArray:any;
+  bothArray:any;
   isEnabled: boolean = true;
   isEnableWords: boolean = false;
   date:any | undefined;
   isWrong: boolean = false;
   isNext: boolean = false;
   isImg: boolean = true;
+
+  ngOnInit() {
+    this.richPeopleArray = this.globals.richPeopleArray;
+    this.normalPeopleArray = this.globals.normalPeopleArray;
+    this.bothArray = this.globals.bothPeopleArray;
+  }
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {

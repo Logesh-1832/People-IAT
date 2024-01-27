@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Globals } from '../../app.global';
 
 @Component({
   selector: 'app-first-trial',
@@ -10,42 +11,30 @@ import { RouterLink } from '@angular/router';
   styleUrl: './first-trial.component.css'
 })
 export class FirstTrialComponent {
+  constructor(private globals: Globals){}
+
 text:string = '';
-positveArray:any = [
-  {name:"Enjoy",value:"e"},
-  {name:"Pleasing",value:"e"},
-  {name:"Excellent",value:"e"}, 
-  {name:"Laughing",value:"e"}, 
-  {name:"Celebrate",value:"e"}, 
-  {name:"Love",value:"e"},
-  {name:"Fantastic",value:"e"},
-  {name:"Lovely",value:"e"},
-];
-
-negativeArray:any = [
-  {name:"Hate",value:"i"},
-  {name:"Poison",value:"i"},
-  {name:"Nasty",value:"i"}, 
-  {name:"Disgust",value:"i"}, 
-  {name:"Horrific",value:"i"}, 
-  {name:"Abuse",value:"i"},
-  {name:"Pain",value:"i"},
-  {name:"Detest",value:"i"},
-];
-bothArray:any = [ "Hate", "Poison", "Nasty", "Disgust", "Horrific", "Abuse", "Pain", "Detest" , "Enjoy", "Pleasing", "Excellent", "Laughing", "Celebrate", "Love", "Fantastic", "Lovely" ]
-
+positiveWordList:any;
+negativeWordList:any;
+bothWordsArray:any;
 isEnabled: boolean = true;
 isEnableWords: boolean = false;
 date:any | undefined;
 isWrong: boolean = false;
 isNext: boolean = false;
 
+ngOnInit(){
+  this.negativeWordList = this.globals.negativeWordsArray;
+  this.positiveWordList = this.globals.positveWordsArray;
+  this.bothWordsArray = this.globals.bothWordsArray;
+}
+
 @HostListener('window:keyup', ['$event'])
 keyEvent(event: KeyboardEvent) {
   if(event.key == " " && !this.isNext){
     this.isEnabled = false;
     this.isEnableWords = true;
-    this.text = this.positveArray[0].name;
+    this.text = this.positiveWordList[0].name;
   }
 
   if(event.key.toLowerCase() == "e"){
@@ -63,7 +52,7 @@ keyEvent(event: KeyboardEvent) {
 
   checkPositive(){
     this.isWrong = false;
-    let a = this.positveArray.filter( (x: { name: string; }) => x.name == this.text);
+    let a = this.positiveWordList.filter( (x: { name: string; }) => x.name == this.text);
     if(a.length != 0){
       if(this.text == a[0].name){
         this.getRandomWords();
@@ -81,7 +70,7 @@ keyEvent(event: KeyboardEvent) {
 
   checkNegative(){
     this.isWrong = false;
-    let a = this.negativeArray.filter( (x: { name: string; }) => x.name == this.text);
+    let a = this.negativeWordList.filter( (x: { name: string; }) => x.name == this.text);
     if(a.length != 0){
       if(this.text == a[0].name){
         this.getRandomWords();
@@ -93,15 +82,15 @@ keyEvent(event: KeyboardEvent) {
   }
 
   getRandomWords(){
-    var ri = Math.floor(Math.random() * this.bothArray.length);
-    var rs = this.bothArray.splice(ri, 1);
+    var ri = Math.floor(Math.random() * this.bothWordsArray.length);
+    var rs = this.bothWordsArray.splice(ri, 1);
     if( rs.length != 0){
       this.text = rs[0];
     }
     else{
       this.text = " ";
     }
-    if(this.bothArray.length == 0 && this.text == " "){
+    if(this.bothWordsArray.length == 0 && this.text == " "){
       this.isNext = true;
       this.text = " ";
     } 

@@ -10,31 +10,31 @@
                 <th>Category</th>
                 <th>Items</th>
             </tr>
- 
+
             <tr>
                 <td>
-                   Positive Word 
+                   Positive Words 
                 </td>
-                <td>
-                    Enjoy, Pleasing, Excellent, Laughing, Celebrate, Love, Fantastic, Lovely
+                <td *ngFor="let item of positiveWordList">
+                    {{item.name}}
                 </td>
             </tr>
  
             <tr>
                 <td>
-                    Negative Word
+                    Negative Words
                 </td>
-                <td>
-                    Hate, Poison, Nasty, Disgust, Horrific, Abuse, Pain, Detest
+                <td *ngFor="let item of negativeWordList">
+                    {{item.name}}
                 </td>
             </tr>
 
             <tr>
                 <td>
-                    Poor People
+                    Normal People
                 </td>
-                <td>
-
+                <td *ngFor="let item of normalPeopleList">
+                    <img style="width: 70px; height: 70px;" [src]="baseUrl + item.name + '.jpg'" alt="Normal People">
                 </td>
             </tr>
 
@@ -42,8 +42,8 @@
                 <td>
                     Rich People
                 </td>
-                <td>
-                   
+                <td *ngFor="let item of richPeopleList">
+                    <img style="width: 70px; height: 70px;" [src]="baseUrl + item.name + '.jpg'" alt="Rich People">
                 </td>
             </tr>
         </table>
