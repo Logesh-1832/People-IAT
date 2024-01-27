@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Globals } from '../app.global';
 
 @Component({
   selector: 'app-fifth-trial',
@@ -10,64 +11,18 @@ import { RouterLink } from '@angular/router';
   styleUrl: './fifth-trial.component.css'
 })
 export class FifthTrialComponent {
+
+  constructor(private globals: Globals){}
+
+  negativeWordList: any;
+  positiveWordList: any;
+  bothWordsArray: any;
+  richPeopleArray: any;
+  normalPeopleArray: any;
+  bothPeople: any;
   text:string = '';
   imgPath: string = '';
   baseSrc:string = './assets/Peoples/';
-  richPeopleArray:any = [
-    {name:"RP1",value:"e"},
-    {name:"RP2",value:"e"},
-    {name:"RP3",value:"e"}, 
-    {name:"RP4",value:"e"}, 
-    {name:"RP5",value:"e"},
-    {name:"Enjoy",value:"e"},
-    {name:"Pleasing",value:"e"},
-    {name:"Excellent",value:"e"}, 
-    {name:"Laughing",value:"e"}, 
-    {name:"Celebrate",value:"e"}, 
-    {name:"Love",value:"e"},
-    {name:"Fantastic",value:"e"},
-    {name:"Lovely",value:"e"},
-  ];
-  
-  normalPeopleArray:any = [
-    {name:"NP1",value:"i"},
-    {name:"NP2",value:"i"},
-    {name:"NP3",value:"i"}, 
-    {name:"NP4",value:"i"}, 
-    {name:"NP5",value:"i"}, 
-    {name:"Hate",value:"i"},
-    {name:"Poison",value:"i"},
-    {name:"Nasty",value:"i"}, 
-    {name:"Disgust",value:"i"}, 
-    {name:"Horrific",value:"i"}, 
-    {name:"Abuse",value:"i"},
-    {name:"Pain",value:"i"},
-    {name:"Detest",value:"i"},
-  ];
-   bothPeople:any = [ "RP1", "RP2", "RP3", "RP4", "RP5", "NP1", "NP2", "NP3" , "NP4", "NP5" ]
-  positveArray:any = [
-    {name:"Enjoy",value:"e"},
-    {name:"Pleasing",value:"e"},
-    {name:"Excellent",value:"e"}, 
-    {name:"Laughing",value:"e"}, 
-    {name:"Celebrate",value:"e"}, 
-    {name:"Love",value:"e"},
-    {name:"Fantastic",value:"e"},
-    {name:"Lovely",value:"e"},
-  ];
-  
-  negativeArray:any = [
-    {name:"Hate",value:"i"},
-    {name:"Poison",value:"i"},
-    {name:"Nasty",value:"i"}, 
-    {name:"Disgust",value:"i"}, 
-    {name:"Horrific",value:"i"}, 
-    {name:"Abuse",value:"i"},
-    {name:"Pain",value:"i"},
-    {name:"Detest",value:"i"},
-  ];
-  bothArray:any = [ "Hate", "Poison", "Nasty", "Disgust", "Horrific", "Abuse", "Pain", "Detest" , "Enjoy", "Pleasing", "Excellent", "Laughing", "Celebrate", "Love", "Fantastic", "Lovely", "RP1", "RP2", "RP3", "RP4", "RP5", "NP1", "NP2", "NP3" , "NP4", "NP5" ]
-  
   isEnabled: boolean = true;
   isEnableWords: boolean = false;
   isEnableImages: boolean = false;
@@ -76,6 +31,19 @@ export class FifthTrialComponent {
   isNext: boolean = false;
   isImg: boolean = true;
   isImage: boolean = false;
+
+  ngOnInit() {
+    this.richPeopleArray = this.globals.richPeopleArray;
+    this.normalPeopleArray = this.globals.normalPeopleArray;
+    this.bothPeople = this.globals.bothPeopleArray;
+    this.negativeWordList = this.globals.negativeWordsArray;
+    this.positiveWordList = this.globals.positveWordsArray;
+    this.bothWordsArray = this.globals.bothWordsArray;  
+
+    this.richPeopleArray = this.richPeopleArray.concat(this.positiveWordList);
+    this.normalPeopleArray = this.normalPeopleArray.concat(this.negativeWordList);
+    this.bothWordsArray = this.bothWordsArray.concat(this.bothPeople);
+  }
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
@@ -130,8 +98,8 @@ export class FifthTrialComponent {
   }
 
   getRandomArray(){
-    var ri = Math.floor(Math.random() * this.bothArray.length);
-    var rs = this.bothArray.splice(ri, 1);
+    var ri = Math.floor(Math.random() * this.bothWordsArray.length);
+    var rs = this.bothWordsArray.splice(ri, 1);
     this.checkifImg(rs[0]);
    if(this.isImage){
     if( rs.length != 0){
@@ -154,7 +122,7 @@ export class FifthTrialComponent {
       this.isEnableImages = false;
     }
    }
-    if(this.bothArray.length == 0 && this.text == " "){
+    if(this.bothWordsArray.length == 0 && this.text == " "){
       this.isNext = true;
       this.isImg = false;
     } 
