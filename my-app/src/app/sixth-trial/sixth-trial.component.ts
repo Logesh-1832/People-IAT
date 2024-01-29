@@ -49,7 +49,7 @@ export class SixthTrialComponent {
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
-    if(event.key == " " && !this.isNext && this.isStarted){
+    if(event.key == " " && !this.isNext && !this.isStarted){
       this.isEnabled = false;
       this.isEnableImages = true;
       this.text = this.richPeopleArray[0].name;
