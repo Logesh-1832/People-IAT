@@ -28,9 +28,13 @@ export class ThirdTrialComponent {
   isStarted: boolean = false;
 
   ngOnInit() {
+    var a: any[] = [];
+    var b: any[] = [];
     this.richPeopleArray = this.globals.richPeopleArray;
     this.normalPeopleArray = this.globals.normalPeopleArray;
-    this.bothArray = this.globals.bothPeopleArray;
+    this.globals.richPeopleArray.forEach((obj: { name: any; }) =>{ a.push(obj.name);})
+    this.globals.normalPeopleArray.forEach((obj: { name: any; }) =>{ b.push(obj.name);})
+    this.bothArray = a.concat(b);  
   }
 
   @HostListener('window:keyup', ['$event'])

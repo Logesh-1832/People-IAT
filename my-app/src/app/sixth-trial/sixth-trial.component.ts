@@ -34,6 +34,8 @@ export class SixthTrialComponent {
   isStarted: boolean = false;
 
   ngOnInit() {
+    var a: any[] = [];
+    var b: any[] = [];
     this.richPeopleArray = this.globals.richPeopleArray;
     this.normalPeopleArray = this.globals.normalPeopleArray;
     this.bothPeople = this.globals.bothPeopleArray;
@@ -43,7 +45,9 @@ export class SixthTrialComponent {
 
     this.richPeopleArray = this.richPeopleArray.concat(this.negativeWordList);
     this.normalPeopleArray = this.normalPeopleArray.concat(this.positiveWordList);
-    this.bothWordsArray = this.bothWordsArray.concat(this.bothPeople);
+    this.richPeopleArray.forEach((obj: { name: any; }) =>{ a.push(obj.name);})
+    this.normalPeopleArray.forEach((obj: { name: any; }) =>{ a.push(obj.name);})
+    this.bothWordsArray = a.concat(b); 
   }
 
 

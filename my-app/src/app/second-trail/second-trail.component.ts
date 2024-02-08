@@ -25,9 +25,13 @@ export class SecondTrailComponent {
   isStarted: boolean = false;
 
   ngOnInit(){
+    var a: any[] = [];
+    var b: any[] = [];
     this.negativeWordList = this.globals.negativeWordsArray;
     this.positiveWordList = this.globals.positveWordsArray;
-    this.bothWordsArray = this.globals.bothWordsArray;
+    this.globals.positveWordsArray.forEach((obj: { name: any; }) =>{ a.push(obj.name);})
+    this.globals.negativeWordsArray.forEach((obj: { name: any; }) =>{ b.push(obj.name);})
+    this.bothWordsArray = a.concat(b);
   }
 
   @HostListener('window:keyup', ['$event'])
